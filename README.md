@@ -1,6 +1,6 @@
 # node-pdf2ppm
 
-a simple node wrapper for pdftoppm package. 
+Adapter for pdf2ppm ran as cli
 
 ## Quick Start
 

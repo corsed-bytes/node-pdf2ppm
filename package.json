@@ -1,6 +1,6 @@
 {
-  "name": "node-pdftoppm",
-  "version": "2.0.1",
+  "name": "node-pdf2ppm",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,14 +10,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/siyong/node_pdftoppm.git"
+    "url": "https://github.com/corsed-bytes/node-pdf2ppm"
   },
   "dependencies": {
-    "cross-spawn": "^6.0.4",
-    "lodash": "^4.17.5"
-  },
-  "devDependencies": {
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.9.0"
+    "cross-spawn": "^6.0.4"
   }
 }
