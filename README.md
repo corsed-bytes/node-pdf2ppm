@@ -1,23 +1,13 @@
 # node-pdf2ppm
 
-Adapter for pdf2ppm ran as cli
+Adapter for pdf2ppm ran as cli - will need to install pdftoppm separately. 
 
-## Quick Start
+Note: Please consider using https://github.com/Fdawgs/node-poppler
 
-> npm install --save node-pdftoppm
+## Usage
+
+> npm install --save git+https://github.com/corsed-bytes/node-pdf2ppm.git
 
 ```
-const pdf2ppm = require('node-pdftoppm');
-const path = require('path');
-
-const filePath = path.join(__dirname, './sample/test.pdf');
-pdf2ppm(filePath, './', 'hello', (error, data) => {
-    if (error) {
-        console.error('error', error);
-    } else {
-        console.log('result', data);
-    }
-});
-
-
+require("./index.js")("Turngau_100Jahre_Flyer.pdf",".", {first:1, last:2}, (err, da) => console.log(err, da));
 ```

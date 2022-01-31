@@ -63,17 +63,15 @@ const pdf2ppm = (pdfPath, outDir, config={}, cb) => {
         args.push(input);
         args.push(path.join(outDir, _config.filename));
 
-        console.log(_config, args)
         const pdf2ppm = spawn('pdftoppm', args, { stdio: 'inherit' });
 
         pdf2ppm.on('close', () => {
             let fileList = [];
 
-            console.log([path.join(outDir), '-maxdepth', '1', '-name', '"[' +path.join(outDir, _config.filename)+ ']*"'])
-            const listFiles = spawn('find', [path.join(outDir), '-maxdepth', '1', '-name', '\'['+path.join(outDir, _config.filename)+']*\'']);
+            const listFiles = spawn('find', [path.join(outDir), '-maxdepth', '1', '-name', '['+_config.filename+']*']);
             listFiles.stdout.setEncoding('utf8');
-            listFiles.stdout.on('data', (data) => fileList.push(...data.split('\n')));
-            listFiles.on('close', () => cb(null, fileList));
+            listFiles.stdout.on('data', (data) => { fileList.push(...(''+data).split('\n').filter(_ => !!_))});
+            listFiles.on('close', () => { cb(null, fileList) });
         });
         pdf2ppm.on('error', (e) => cb(e));
     } 
