@@ -65,7 +65,7 @@ const pdf2ppm = (pdfPath, outDir, config={}, cb) => {
         args.push(path.join(outDir, _config.filename));
 
         const pdf2ppm = spawn('pdftoppm', args, { stdio: 'inherit' });
-
+console.log('marker');
         pdf2ppm.on('close', () => fs.readdir(path.join(outDir), (err, files) => err ?
             cb(err):
             cb(null, files.filter(file => (!fs.lstatSync(path.resolve(outDir, file)).isDirectory())).filter(_ => _.includes(_config.filename)))
