@@ -65,14 +65,10 @@ const pdf2ppm = (pdfPath, outDir, config={}, cb) => {
 
         const pdf2ppm = spawn('pdftoppm', args, { stdio: 'inherit' });
 
-        pdf2ppm.on('close', () => {
-            let fileList = [];
-
-            const listFiles = spawn('find', [path.join(outDir), '-maxdepth', '1', '-name', '['+_config.filename+']*']);
-            listFiles.stdout.setEncoding('utf8');
-            listFiles.stdout.on('data', (data) => { fileList.push(...(''+data).split('\n').filter(_ => !!_))});
-            listFiles.on('close', () => { cb(null, fileList) });
-        });
+        pdf2ppm.on('close', () => fs.readdir(path.join(outDir), (err, files) => err ?
+            cb(err):
+            cb(null, files.filter(file => (!fs.lstatSync(path.resolve(outDir, file)).isDirectory())).filter(_ => _.includes(_config.filename)))
+        ));
         pdf2ppm.on('error', (e) => cb(e));
     } 
 
