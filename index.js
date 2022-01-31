@@ -1,4 +1,5 @@
 const spawn = require('cross-spawn');
+const fs = require('fs');
 const path = require('path');
 
 const defaultConfig = {
