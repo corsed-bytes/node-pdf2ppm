@@ -65,10 +65,9 @@ const pdf2ppm = (pdfPath, outDir, config={}, cb) => {
         args.push(path.join(outDir, _config.filename));
 
         const pdf2ppm = spawn('pdftoppm', args, { stdio: 'inherit' });
-console.log('marker');
         pdf2ppm.on('close', () => fs.readdir(path.join(outDir), (err, files) => err ?
             cb(err):
-            cb(null, files.filter(file => (!fs.lstatSync(path.resolve(outDir, file)).isDirectory())).filter(_ => _.includes(_config.filename)))
+            cb(null, files.filter(file => { try { return !fs.lstatSync(path.resolve(outDir, file)).isDirectory() } catch(_) { console.log('File missing', path.join(outDir), file, _); } return false; }).filter(_ => _.includes(_config.filename)))
         ));
         pdf2ppm.on('error', (e) => cb(e));
     } 
